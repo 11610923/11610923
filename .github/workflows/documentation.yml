@@ -13,11 +13,6 @@ jobs:
           pip install sphinx sphinx_rtd_theme
       - name: Sphinx build
         run: |
-          # mkdir document
-          # cp -r code/build/* document/
-          mkdir empty-directory
-          cd empty-directory
-          touch .gitkeep
-          git add .
-          git commit -m "Commit empty folder in Git with gitkeep"
-          git push origin
+          # mkdir -p ${{ github.workspace }}/document
+          # cp -r ${{ github.workspace }}/code/build/* ${{ github.workspace }}/document/
+
