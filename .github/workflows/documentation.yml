@@ -14,4 +14,3 @@ jobs:
       - name: Sphinx build
         run: |
           mkdir Documents
-          sphinx-apidoc -o code/source code/test/
