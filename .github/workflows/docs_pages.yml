@@ -45,8 +45,8 @@ jobs:
           
       - name: Commit changes
         run: |
-          cd docs/build/html/
-          ls -lS
+          # cd docs/build/html/
+          # ls -lS
           git config --global user.email "vignesh.raj@gainwelltechnologies.com"
           git config --global user.name "vignesh-raj-s"
           git add * 
