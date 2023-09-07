@@ -35,6 +35,7 @@ jobs:
           # make -C docs html
       - name: make the sphinx docs
         run: |
+          mkdir docs
           make -C docs clean 
           sphinx-apidoc --force -o docs test/
           make -C docs html
