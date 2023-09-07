@@ -38,12 +38,12 @@ jobs:
         run: |
           cd docs/build/html/
           ls -lS
-          # git config --global user.email "no-reply@github.com"
-          # git config --global user.name "GitHub Actions"
-          # git add -A
-          # git commit -m "Update blog.json"
+          git config --global user.email "vignesh.raj@gainwelltechnologies.com"
+          git config --global user.name "vignesh-raj-s"
+          git add -A
+          git commit -m "my test"
           # git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
-          # git push
+          git push
 
       # - name: Init new repo in dist folder and commit generated files
         # run: |
