@@ -38,6 +38,7 @@ jobs:
           mkdir docs
           # make -C docs clean 
           sphinx-apidoc --force -o docs test/
+          make html
           # make -C docs html
           
       - name: Commit changes
