@@ -39,7 +39,7 @@ jobs:
           # make -C docs clean 
           sphinx-apidoc --force -o docs test/
           cd docs/
-          make html
+          make -C docs html
           ls -lS
           # makefile html
           # make -C docs html
