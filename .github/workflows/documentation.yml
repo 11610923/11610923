@@ -14,5 +14,6 @@ jobs:
       - name: Sphinx build
         run: |
           # mkdir -p ${{ github.workspace }}/document
-          # cp -r ${{ github.workspace }}/code/build/* ${{ github.workspace }}/document/
+          touch "${{ github.workspace }}/document/.gitkeep"
+          git add "${{ github.workspace }}/document/.gitkeep"
 
