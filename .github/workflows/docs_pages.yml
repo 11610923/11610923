@@ -36,12 +36,12 @@ jobs:
 
       # - name: Init new repo in dist folder and commit generated files
         # run: |
-          cd docs/build/html/
-          git init
-          touch .nojekyll
-          git add -A
-          git commit -m "testing"
-          git push
+          # cd docs/build/html/
+          # git init
+          # touch .nojekyll
+          # git add -A
+          # git commit -m "testing"
+          # git push
           # git config --local user.email "action@github.com"
           # git config --local user.name "GitHub Action"
           # git commit -m 'deploy'
