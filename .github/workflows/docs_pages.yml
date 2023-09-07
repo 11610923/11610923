@@ -28,16 +28,23 @@ jobs:
           # python -m pip install sphinxcontrib-apidoc
           python -m pip install sphinx-autoapi
 
+      # - name: make the sphinx docs
+        # run: |
+          # make -C docs clean 
+          # sphinx-apidoc -f -o docs/source . -H Test -e -t docs/source/_templates
+          # make -C docs html
       - name: make the sphinx docs
         run: |
           make -C docs clean 
-          # sphinx-apidoc -f -o docs/source . -H Test -e -t docs/source/_templates
+          sphinx-apidoc --force -o docs test/
           make -C docs html
           
       - name: Commit changes
         run: |
           cd docs/build/html/
           ls -lS
+          git config --global user.email "vignesh.raj@gainwelltechnologies.com"
+          git config --global user.name "vignesh-raj-s"
           git add * 
           git commit -m "my test"
           git push
