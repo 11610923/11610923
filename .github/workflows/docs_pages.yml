@@ -38,7 +38,6 @@ jobs:
           mkdir -p docs
           # make -C docs clean 
           sphinx-apidoc --force -o docs test/
-          cd docs/
           make -C docs html
           ls -lS
           # makefile html
