@@ -40,7 +40,7 @@ jobs:
           sphinx-apidoc --force -o docs test/
           cd docs/
           ls -lS
-          makefile html
+          # makefile html
           # make -C docs html
           
       - name: Commit changes
