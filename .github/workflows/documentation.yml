@@ -13,4 +13,5 @@ jobs:
           pip install sphinx sphinx_rtd_theme
       - name: Sphinx build
         run: |
+          mkdir Documents
           sphinx-apidoc -o code/source code/test/
