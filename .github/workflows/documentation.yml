@@ -14,5 +14,5 @@ jobs:
       - name: Sphinx build
         run: |
           mkdir document
-          cp -r /code/build/* document/
+          cp -r code/build/* document/
           
