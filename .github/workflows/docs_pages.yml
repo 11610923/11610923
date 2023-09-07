@@ -40,7 +40,7 @@ jobs:
           ls -lS
           git config --global user.email "vignesh.raj@gainwelltechnologies.com"
           git config --global user.name "vignesh-raj-s"
-          git add -A
+          git add *
           git commit -m "my test"
           # git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
           git push
