@@ -38,30 +38,7 @@ jobs:
         run: |
           cd docs/build/html/
           ls -lS
-          git config --global user.email "vignesh.raj@gainwelltechnologies.com"
-          git config --global user.name "vignesh-raj-s"
-          git add *
+          git add * 
           git commit -m "my test"
-          # git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
           git push
-
-      # - name: Init new repo in dist folder and commit generated files
-        # run: |
-          # cd docs/build/html/
-          # git init
-          # touch .nojekyll
-          # git add -A
-          # git commit -m "testing"
-          # git push
-          # git config --local user.email "action@github.com"
-          # git config --local user.name "GitHub Action"
-          # git commit -m 'deploy'
-
-      # - name: Force push to destination branch
-        # uses: ad-m/github-push-action@v0.5.0
-        # with:
-          # github_token: ${{ secrets.GITHUB_TOKEN }}
-          # branch: main
-          # force: true
-          # directory: ./docs/build/html
 
