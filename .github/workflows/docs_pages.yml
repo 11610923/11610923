@@ -35,13 +35,13 @@ jobs:
           make -C docs html
           
       - name: Commit changes
-       run: |
-         git config --global user.email "no-reply@github.com"
-         git config --global user.name "GitHub Actions"
-         git add -A
-         git commit -m "Update blog.json"
-         git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
-         git push
+        run: |
+          git config --global user.email "no-reply@github.com"
+          git config --global user.name "GitHub Actions"
+          git add -A
+          git commit -m "Update blog.json"
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          git push
 
       # - name: Init new repo in dist folder and commit generated files
         # run: |
