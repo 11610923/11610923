@@ -29,11 +29,6 @@ jobs:
           python -m pip install sphinx-autoapi
           python -m pip install myst-parser
 
-      # - name: make the sphinx docs
-        # run: |
-          # make -C docs clean 
-          # sphinx-apidoc -f -o docs/source . -H Test -e -t docs/source/_templates
-          # make -C docs html
       - name: make the sphinx docs
         run: |
           mkdir -p docs
@@ -44,8 +39,6 @@ jobs:
           
       - name: Commit changes
         run: |
-          # cd docs/build/html/
-          # ls -lS
           git config --global user.email "vignesh.raj@gainwelltechnologies.com"
           git config --global user.name "vignesh-raj-s"
           git add * 

@@ -1,36 +1,24 @@
 Documentation
 =============
 
-My Test Framework is a Python library for doing the data manipulations. It works
-with your favorite interface to provide idiomatic ways of adding,
-subtracting, and multiplying the values given. 
+The Batch Monitor monitors the batch at the defined frequency and captures all the open and delayed branches. It will prepare the respective json message and publish it to the Control service queue
 
-Quick Start
-===========
+Batch Monitoring Flow:
+======================
 
-My Explanation content goes here 
+# ![Batching_Monitor_flow](https://github.com/mygainwell/acuity-de-batchingservice/blob/47e7055c8b083ac567026ff76fa5b6db7d2c4c5f/documentations/diagrams/Batching_Monitor_flow.jpg)
 
-Here's an HTML document I'll be using as an example throughout this
-document. It's part of a story from `Alice in Wonderland`::
+1. Event Bridge starts the "Batch Monitoring" function at the defined frequency.
+2. Process scans the Batching transaction metadata tables.
+3. Captures all the Open and Delayed batches beyond the window end date, from transaction tables.
+4. Verifies if any open or delayed batches.
+	If no End the process.
+5. For all the open or delayed bactches, prepare respective JSON message.
+6. Publish it to the Control service queue.
+7. Ends the process.
 
-    html_doc = """
-    <html><head><title>The Dormouse's story</title></head>
-    <body>
-    <p class="title"><b>The Dormouse's story</b></p>
-
-    <p class="story">Once upon a time there were three little sisters; and their names were
-    <a href="http://example.com/elsie" class="sister" id="link1">Elsie</a>,
-    <a href="http://example.com/lacie" class="sister" id="link2">Lacie</a> and
-    <a href="http://example.com/tillie" class="sister" id="link3">Tillie</a>;
-    and they lived at the bottom of a well.</p>
-
-    <p class="story">...</p>
-    """
-
-Does this look like what you need? If so, read on.
-
-Installing Modules
-==================
+Installing Dependent Modules
+============================
 
 If you're using a recent version of Debian or Ubuntu Linux, you can
 install with the system package manager:
@@ -42,11 +30,23 @@ with the system packager, you can install it with ``easy_install`` or
 ``pip``. The package name is ``packagename``, and the same package
 works on Python 2 and Python 3.
 
-    $ easy_install packagename`
+    $ easy_install packagename
 
-    $ pip install packagename`
+    $ pip install packagename
+	
+To install necessary packages:
 
-    $ python setup.py install`
+	$ pip install uuid
+	
+	$ pip install unittest
+	
+	$ pip install psycopg2
+	
+	$ pip install boto3
+	
+	$ pip install botocore
+	
+	$ pip install jsonschema
 
 If all else fails, the license for package allows you to
 package the entire library with your application. 
