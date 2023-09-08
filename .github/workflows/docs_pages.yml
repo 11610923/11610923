@@ -38,7 +38,7 @@ jobs:
           mkdir -p docs
           # make -C docs clean 
           sphinx-apidoc --force -o docs test/
-          sphinx-build doc docs/docs/
+          sphinx-build docs docs/docs/
           
       - name: Commit changes
         run: |
