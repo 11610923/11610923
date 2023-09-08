@@ -32,8 +32,8 @@ jobs:
 
       - name: make the sphinx docs
         run: |
-          mkdir -p docs
-          mkdir -p source
+          #mkdir -p docs
+          #mkdir -p source
           # cp acuity_de_batchingmonitor/readme.md source/readme.md
           sphinx-apidoc --force -o source acuity_de_batchingmonitor/
           sphinx-build source docs/
