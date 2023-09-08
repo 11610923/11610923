@@ -38,10 +38,7 @@ jobs:
           mkdir -p docs
           # make -C docs clean 
           sphinx-apidoc --force -o docs test/
-          # Makefile html
-          ls -lS
-          # makefile html
-          # make -C docs html
+          make -C docs html
           
       - name: Commit changes
         run: |
