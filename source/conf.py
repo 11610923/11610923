@@ -12,9 +12,10 @@
 #
 import os
 import sys
+
 sys.path.insert(0, os.path.abspath('..'))
-
-
+# basedir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'acuity_de_batchingmonitor'))
+# sys.path.insert(0, basedir)
 # -- Project information -----------------------------------------------------
 
 project = 'Batch Monitor'
@@ -34,8 +35,13 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.viewcode',
     'sphinx.ext.napoleon',
-    'myst_parser'
+    'myst_parser',
+    'sphinx.ext.autosummary'
 ]
+
+autoapi_dirs = ['acuity_de_batchingmonitor/commons', 'acuity_de_batchingmonitor/monitor']
+
+
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
