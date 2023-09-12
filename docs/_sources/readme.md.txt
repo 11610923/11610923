@@ -1,12 +1,10 @@
 Documentation
 =============
 
-The Batch Monitor monitors the batch at the defined frequency and captures all the open and delayed branches. It will prepare the respective json message and publish it to the Control service queue
+The Batch Monitor monitors the batch at the defined frequency and captures all the open and delayed branches. It will prepare the respective json message and publish it to the Control service queue.
 
-Batch Monitoring Flow:
-======================
-
-# ![Batching_Monitor_flow](https://github.com/mygainwell/acuity-de-batchingservice/blob/47e7055c8b083ac567026ff76fa5b6db7d2c4c5f/documentations/diagrams/Batching_Monitor_flow.jpg)
+Batch Monitoring Flow
+=====================
 
 1. Event Bridge starts the "Batch Monitoring" function at the defined frequency.
 2. Process scans the Batching transaction metadata tables.
