@@ -38,7 +38,7 @@ extensions = [
     'sphinx.ext.duration',
     'sphinx.ext.autosummary',
     'sphinx.ext.intersphinx',
-    'autoapi.extension',
+    # 'autoapi.extension',
     'myst_parser'
 ]
 
