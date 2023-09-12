@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>acuity_de_batchingmonitor.monitor.monitor_main &mdash; Batch Monitor 1.0.0.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=7da82d16"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Batch Monitor
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../readme.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../readme.html#batch-monitoring-flow">Batch Monitoring Flow:</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../readme.html#installing-dependent-modules">Installing Dependent Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">acuity_de_batchingmonitor</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Batch Monitor</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">acuity_de_batchingmonitor.monitor.monitor_main</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for acuity_de_batchingmonitor.monitor.monitor_main</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">groupby</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">uuid</span>
+
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;/monitor_code&#39;</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">acuity_de_batchingmonitor.commons.CONSTANTS</span> <span class="k">as</span> <span class="nn">CONSTANTS</span>
+<span class="kn">import</span> <span class="nn">acuity_de_batchingmonitor.commons.connect_pg</span> <span class="k">as</span> <span class="nn">pg</span>
+<span class="kn">import</span> <span class="nn">acuity_de_batchingmonitor.commons.gen_sql</span> <span class="k">as</span> <span class="nn">gen_sql</span>
+<span class="kn">from</span> <span class="nn">acuity_de_batchingmonitor.commons.publish_sqs</span> <span class="kn">import</span> <span class="n">publish_sqs</span> <span class="k">as</span> <span class="n">ps</span>
+
+
+<div class="viewcode-block" id="b_mon"><a class="viewcode-back" href="../../../acuity_de_batchingmonitor.monitor.html#acuity_de_batchingmonitor.monitor.monitor_main.b_mon">[docs]</a><span class="k">def</span> <span class="nf">b_mon</span><span class="p">():</span>
+
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method will be used to create public directory.</span>
+
+<span class="sd">        :param str ctrl_pub_msg: Event Message.</span>
+<span class="sd">        :param str config_nm: Configuration Name.</span>
+<span class="sd">        :param str extract_dt: Extraxt Date.</span>
+<span class="sd">        :param str trgt_obj_nm: Target Object Name.</span>
+
+<span class="sd">        :returns: The JSON Response.</span>
+<span class="sd">        </span>
+<span class="sd">        :rtype: dict</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># Fetching all Open Batches from Metadata Tables</span>
+        <span class="n">open_dict</span> <span class="o">=</span> <span class="n">pg</span><span class="o">.</span><span class="n">connect_pg</span><span class="o">.</span><span class="n">commit_pg_txn</span><span class="p">(</span><span class="n">gen_sql</span><span class="o">.</span><span class="n">open_sql</span><span class="p">)</span>
+        
+        <span class="n">open_dict_by_config</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">groupby</span><span class="p">(</span><span class="n">open_dict</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;batch_config_sk&#39;</span><span class="p">]):</span>
+            <span class="n">values_list</span> <span class="o">=</span> <span class="p">[{</span><span class="n">k</span><span class="p">:</span><span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="s1">&#39;batch_config_sk&#39;</span><span class="p">}</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">group</span><span class="p">]</span>
+            <span class="n">open_dict_by_config</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">values_list</span>
+        
+        <span class="k">for</span> <span class="n">config_sk</span><span class="p">,</span> <span class="n">config_value_list</span> <span class="ow">in</span> <span class="n">open_dict_by_config</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">src_tab_list</span><span class="o">=</span><span class="p">[</span><span class="n">src</span><span class="p">[</span><span class="s1">&#39;batch_config_dtl_src_file_nm&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">src</span> <span class="ow">in</span> <span class="n">config_value_list</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">src</span><span class="p">[</span><span class="s1">&#39;file_rcvd&#39;</span><span class="p">]</span> <span class="p">]</span>
+            <span class="n">ctrl_open_msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;&#39;&#39;There is an open batch for the batch config </span><span class="si">{</span><span class="n">config_sk</span><span class="si">}</span><span class="s1">, waiting for </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">src_tab_list</span><span class="p">)</span><span class="si">}</span><span class="s1"> table(s)/file(s) : </span><span class="si">{</span><span class="n">src_tab_list</span><span class="si">}</span><span class="s1"> with the extract date: &quot;</span><span class="si">{</span><span class="n">config_value_list</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;batch_txn_data_extract_dt&#39;</span><span class="p">]</span><span class="si">}</span><span class="s1">&quot; from source. Hence the target workflow &quot;</span><span class="si">{</span><span class="n">config_value_list</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;batch_config_trgt_scrpt&#39;</span><span class="p">]</span><span class="si">}</span><span class="s1">&quot; on &quot;</span><span class="si">{</span><span class="n">config_value_list</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;batch_config_trgt_app&#39;</span><span class="p">]</span><span class="si">}</span><span class="s1">&quot; is not triggered. Please investigate and take appropriate action.&#39;&#39;&#39;</span>
+            <span class="n">open_pub_dict</span> <span class="o">=</span> <span class="n">create_pub_dict</span><span class="p">(</span><span class="n">ctrl_open_msg</span><span class="p">,</span> <span class="n">config_value_list</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;batch_config_nm&#39;</span><span class="p">],</span> <span class="nb">str</span><span class="p">(</span><span class="n">config_value_list</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;batch_txn_data_extract_dt&#39;</span><span class="p">]),</span> <span class="n">config_value_list</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;batch_config_trgt_app&#39;</span><span class="p">])</span>
+            <span class="n">open_pub_resp</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="n">pub_sqs</span><span class="p">(</span><span class="n">CONSTANTS</span><span class="o">.</span><span class="n">CONTROL_QUEUE_NAME</span><span class="p">,</span> <span class="n">open_pub_dict</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">open_pub_resp</span><span class="p">[</span><span class="s1">&#39;ResponseMetadata&#39;</span><span class="p">][</span><span class="s1">&#39;HTTPStatusCode&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Error while sending message about Open Batches, from Batching Service Monitor to Control Service queue:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">CONSTANTS</span><span class="o">.</span><span class="n">CONTROL_QUEUE_NAME</span><span class="p">))</span>
+            
+        <span class="c1"># Fetching all Delayed Batches from Metadata Tables</span>
+        <span class="n">no_file_dict_list</span> <span class="o">=</span> <span class="n">pg</span><span class="o">.</span><span class="n">connect_pg</span><span class="o">.</span><span class="n">commit_pg_txn</span><span class="p">(</span><span class="n">gen_sql</span><span class="o">.</span><span class="n">no_file_sql</span><span class="p">)</span>
+        
+        <span class="k">for</span> <span class="n">no_file_dict</span> <span class="ow">in</span> <span class="n">no_file_dict_list</span><span class="p">:</span>
+            <span class="n">ctrl_no_file_msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;&#39;&#39;For the Batch Config </span><span class="si">{</span><span class="n">no_file_dict</span><span class="p">[</span><span class="s1">&#39;batch_config_sk&#39;</span><span class="p">]</span><span class="si">}</span><span class="s1">, the last load was with extract Timestamp &quot;</span><span class="si">{</span><span class="n">no_file_dict</span><span class="p">[</span><span class="s1">&#39;batch_txn_data_extract_dt&#39;</span><span class="p">]</span><span class="si">}</span><span class="s1">&quot;. The next set of files were expected by &quot;</span><span class="si">{</span><span class="n">no_file_dict</span><span class="p">[</span><span class="s1">&#39;sla&#39;</span><span class="p">]</span><span class="si">}</span><span class="s1">&quot;, none of the files are received till today, hence the workflow </span><span class="si">{</span><span class="n">no_file_dict</span><span class="p">[</span><span class="s1">&#39;batch_config_trgt_scrpt&#39;</span><span class="p">]</span><span class="si">}</span><span class="s1"> on </span><span class="si">{</span><span class="n">no_file_dict</span><span class="p">[</span><span class="s1">&#39;batch_config_trgt_app&#39;</span><span class="p">]</span><span class="si">}</span><span class="s1"> is not triggered. Please investigate and take the appropriate action.&#39;&#39;&#39;</span>
+            <span class="n">no_file_pub_dict</span> <span class="o">=</span> <span class="n">create_pub_dict</span><span class="p">(</span><span class="n">ctrl_no_file_msg</span><span class="p">,</span> <span class="n">no_file_dict</span><span class="p">[</span><span class="s1">&#39;batch_config_nm&#39;</span><span class="p">],</span> <span class="nb">str</span><span class="p">(</span><span class="n">no_file_dict</span><span class="p">[</span><span class="s1">&#39;batch_txn_data_extract_dt&#39;</span><span class="p">]),</span> <span class="n">no_file_dict</span><span class="p">[</span><span class="s1">&#39;batch_config_trgt_app&#39;</span><span class="p">])</span>
+            <span class="n">no_file_pub_resp</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="n">pub_sqs</span><span class="p">(</span><span class="n">CONSTANTS</span><span class="o">.</span><span class="n">CONTROL_QUEUE_NAME</span><span class="p">,</span> <span class="n">no_file_pub_dict</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">no_file_pub_resp</span><span class="p">[</span><span class="s1">&#39;ResponseMetadata&#39;</span><span class="p">][</span><span class="s1">&#39;HTTPStatusCode&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Error while sending message about delayed bacth start, from Batching Service Monitor to Control Service queue:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">CONSTANTS</span><span class="o">.</span><span class="n">CONTROL_QUEUE_NAME</span><span class="p">))</span>
+            
+    <span class="k">except</span><span class="p">(</span><span class="ne">Exception</span><span class="p">)</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Error:- &#39;</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Batching Service Monitoring process completed at:&#39;</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span> <span class="p">)</span></div>
+
+<div class="viewcode-block" id="create_pub_dict"><a class="viewcode-back" href="../../../acuity_de_batchingmonitor.monitor.html#acuity_de_batchingmonitor.monitor.monitor_main.create_pub_dict">[docs]</a><span class="k">def</span> <span class="nf">create_pub_dict</span><span class="p">(</span><span class="n">ctrl_pub_msg</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">config_nm</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">extract_dt</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">trgt_obj_nm</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">  </span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method will be used to create public directory.</span>
+
+<span class="sd">        :param str ctrl_pub_msg: Event Message.</span>
+<span class="sd">        :param str config_nm: Configuration Name.</span>
+<span class="sd">        :param str extract_dt: Extraxt Date.</span>
+<span class="sd">        :param str trgt_obj_nm: Target Object Name.</span>
+
+<span class="sd">        :returns: The JSON Response.</span>
+
+<span class="sd">        :rtype: dict</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+        
+    <span class="n">pub_dict</span> <span class="o">=</span> <span class="n">CONSTANTS</span><span class="o">.</span><span class="n">CONTROL_JSON_DICT</span>
+    <span class="n">v_uuid</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())</span>
+    <span class="n">v_current_dtm</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
+    <span class="n">pub_dict</span><span class="p">[</span><span class="s1">&#39;uuid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">v_uuid</span>
+    <span class="n">pub_dict</span><span class="p">[</span><span class="s1">&#39;eventMinor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">config_nm</span>
+    <span class="n">pub_dict</span><span class="p">[</span><span class="s1">&#39;exceptionType&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">CONSTANTS</span><span class="o">.</span><span class="n">BUSS_EXCEPTION</span>
+    <span class="n">pub_dict</span><span class="p">[</span><span class="s1">&#39;exceptionName&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ctrl_pub_msg</span>
+    <span class="n">pub_dict</span><span class="p">[</span><span class="s1">&#39;eventMessage&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ctrl_pub_msg</span>
+    <span class="n">pub_dict</span><span class="p">[</span><span class="s1">&#39;extractStartTimeStamp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">extract_dt</span>
+    <span class="n">pub_dict</span><span class="p">[</span><span class="s1">&#39;eventTimeStamp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">v_current_dtm</span>
+    <span class="n">pub_dict</span><span class="p">[</span><span class="s1">&#39;entity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">trgt_obj_nm</span>
+
+    <span class="k">return</span> <span class="n">pub_dict</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+        <span class="n">b_mon</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Vignesh Raj.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
