@@ -122,52 +122,85 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="acuity_de_batchingmonitor.commons.json_validator.validate_json">
 <span class="sig-prename descclassname"><span class="pre">acuity_de_batchingmonitor.commons.json_validator.</span></span><span class="sig-name descname"><span class="pre">validate_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">schema</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">json_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/acuity_de_batchingmonitor/commons/json_validator.html#validate_json"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#acuity_de_batchingmonitor.commons.json_validator.validate_json" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>This method will validate validate an instance under a given schema.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>schema</strong> (<em>str</em>) – The schema to validate with.</p></li>
+<li><p><strong>json_dict</strong> (<em>dict</em>) – The instance to validate.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Validation boolean.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>boolean</p>
+</dd>
+</dl>
+</dd></dl>
 
 </section>
 <section id="module-acuity_de_batchingmonitor.commons.log4j_logger">
 <span id="acuity-de-batchingmonitor-commons-log4j-logger-module"></span><h2>acuity_de_batchingmonitor.commons.log4j_logger module<a class="headerlink" href="#module-acuity_de_batchingmonitor.commons.log4j_logger" title="Permalink to this heading"></a></h2>
-<section id="logging">
-<h3>logging<a class="headerlink" href="#logging" title="Permalink to this heading"></a></h3>
-<p>This module contains a class that wraps the log4j object instantiated
-by the active SparkContext, enabling Log4j logging for PySpark using.</p>
-</section>
+<p>This module contains a class that wraps the log4j object instantiated by the active SparkContext, enabling Log4j logging for PySpark using.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="acuity_de_batchingmonitor.commons.log4j_logger.Log4j">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">acuity_de_batchingmonitor.commons.log4j_logger.</span></span><span class="sig-name descname"><span class="pre">Log4j</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spark</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/acuity_de_batchingmonitor/commons/log4j_logger.html#Log4j"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#acuity_de_batchingmonitor.commons.log4j_logger.Log4j" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Wrapper class for Log4j JVM object.
-:param spark: SparkSession object.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="acuity_de_batchingmonitor.commons.log4j_logger.Log4j.debug">
 <span class="sig-name descname"><span class="pre">debug</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/acuity_de_batchingmonitor/commons/log4j_logger.html#Log4j.debug"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#acuity_de_batchingmonitor.commons.log4j_logger.Log4j.debug" title="Permalink to this definition"></a></dt>
-<dd><p>Log for debug.
-:param: Debug message to write to log
-:return: None</p>
+<dd><p>It prints messages with the level (Level.DEBUG).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>message</strong> (<em>obj</em>) – The message object.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="acuity_de_batchingmonitor.commons.log4j_logger.Log4j.error">
 <span class="sig-name descname"><span class="pre">error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/acuity_de_batchingmonitor/commons/log4j_logger.html#Log4j.error"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#acuity_de_batchingmonitor.commons.log4j_logger.Log4j.error" title="Permalink to this definition"></a></dt>
-<dd><p>Log an error.
-:param: Error message to write to log
-:return: None</p>
+<dd><p>It prints messages with the level (Level.ERROR).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>message</strong> (<em>obj</em>) – The message object.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="acuity_de_batchingmonitor.commons.log4j_logger.Log4j.info">
 <span class="sig-name descname"><span class="pre">info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/acuity_de_batchingmonitor/commons/log4j_logger.html#Log4j.info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#acuity_de_batchingmonitor.commons.log4j_logger.Log4j.info" title="Permalink to this definition"></a></dt>
-<dd><p>Log information.
-:param: Information message to write to log
-:return: None</p>
+<dd><p>It prints messages with the level (Level.INFO).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>message</strong> (<em>obj</em>) – The message object.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="acuity_de_batchingmonitor.commons.log4j_logger.Log4j.warn">
 <span class="sig-name descname"><span class="pre">warn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/acuity_de_batchingmonitor/commons/log4j_logger.html#Log4j.warn"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#acuity_de_batchingmonitor.commons.log4j_logger.Log4j.warn" title="Permalink to this definition"></a></dt>
-<dd><p>Log a warning.
-:param: Warning message to write to log
-:return: None</p>
+<dd><p>It prints messages with the level (Level.WARN).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>message</strong> (<em>obj</em>) – The message object.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -182,12 +215,42 @@ by the active SparkContext, enabling Log4j logging for PySpark using.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="acuity_de_batchingmonitor.commons.publish_sqs.publish_sqs.gen_msg">
 <span class="sig-name descname"><span class="pre">gen_msg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">meta_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exceptionType</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">evtMsg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/acuity_de_batchingmonitor/commons/publish_sqs.html#publish_sqs.gen_msg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#acuity_de_batchingmonitor.commons.publish_sqs.publish_sqs.gen_msg" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>This method will Create SQS client</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>queue_name</strong> (<em>str</em>) – The Queue Name.</p></li>
+<li><p><strong>pub_msg</strong> (<em>dict</em>) – The Public Message.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The response message.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>json</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="acuity_de_batchingmonitor.commons.publish_sqs.publish_sqs.pub_sqs">
 <span class="sig-name descname"><span class="pre">pub_sqs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pub_msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/acuity_de_batchingmonitor/commons/publish_sqs.html#publish_sqs.pub_sqs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#acuity_de_batchingmonitor.commons.publish_sqs.publish_sqs.pub_sqs" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>This method will Create SQS client</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>queue_name</strong> (<em>str</em>) – The Queue Name.</p></li>
+<li><p><strong>pub_msg</strong> (<em>dict</em>) – The Public Message.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The response message.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>json</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
