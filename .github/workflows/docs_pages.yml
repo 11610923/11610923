@@ -39,7 +39,7 @@ jobs:
           #make -C docs clean
           sphinx-apidoc --force -o source acuity_de_batchingmonitor
           sphinx-build -b html source docs/
-          make -C html
+          make html
           
       - name: Commit changes
         run: |
