@@ -37,7 +37,7 @@ jobs:
           # cp acuity_de_batchingmonitor/readme.md source/readme.md
           ls -lS 
           sphinx-apidoc --force -o source acuity_de_batchingmonitor
-          sphinx-build -b source docs/
+          sphinx-build -b html source docs/
           
       - name: Commit changes
         run: |
