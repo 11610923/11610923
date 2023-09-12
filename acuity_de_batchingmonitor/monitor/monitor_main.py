@@ -11,20 +11,6 @@ from acuity_de_batchingmonitor.commons.publish_sqs import publish_sqs as ps
 
 
 def b_mon():
-
-    """
-        This method will be used to create public directory.
-
-        :param str ctrl_pub_msg: Event Message.
-        :param str config_nm: Configuration Name.
-        :param str extract_dt: Extraxt Date.
-        :param str trgt_obj_nm: Target Object Name.
-
-        :returns: The JSON Response.
-        
-        :rtype: dict
-    """
-
     try:
         # Fetching all Open Batches from Metadata Tables
         open_dict = pg.connect_pg.commit_pg_txn(gen_sql.open_sql)
@@ -59,20 +45,6 @@ def b_mon():
         print(f'Batching Service Monitoring process completed at:', datetime.now().strftime('%Y-%m-%d %H:%M:%S') )
 
 def create_pub_dict(ctrl_pub_msg: str, config_nm: str, extract_dt: str, trgt_obj_nm: str):
-  
-    """
-        This method will be used to create public directory.
-
-        :param str ctrl_pub_msg: Event Message.
-        :param str config_nm: Configuration Name.
-        :param str extract_dt: Extraxt Date.
-        :param str trgt_obj_nm: Target Object Name.
-
-        :returns: The JSON Response.
-
-        :rtype: dict
-    """
-        
     pub_dict = CONSTANTS.CONTROL_JSON_DICT
     v_uuid = str(uuid.uuid4())
     v_current_dtm = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
