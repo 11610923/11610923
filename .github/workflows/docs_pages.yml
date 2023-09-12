@@ -29,6 +29,9 @@ jobs:
           python -m pip install sphinx-autoapi
           python -m pip install myst-parser
           python -m pip install renku-sphinx-theme
+          python -m pip install psycopg
+          python -m pip install jsonschema
+          python -m pip install boto3
 
       - name: make the sphinx docs
         run: |
