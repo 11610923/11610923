@@ -1,6 +1,7 @@
-acuity_de_batchingmonitor
-=========================
+code
+====
 
 .. toctree::
    :maxdepth: 4
 
+   code
