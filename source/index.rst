@@ -5,7 +5,7 @@
 
 Welcome to Batch Monitoring Services's documentation!
 =====================================================
-   My Test Framework is a Python library for doing the data manipulations. It works with your favorite interface to provide idiomatic ways of adding, subtracting, and multiplying the values given.
+	The Batch Monitor monitors the batch at the defined frequency and captures all the open and delayed branches. It will prepare the respective json message and publish it to the Control service queue.
 
 =========================================
 
