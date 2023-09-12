@@ -9,6 +9,19 @@ class publish_sqs:
     
     def pub_sqs(queue_name: str, pub_msg: dict):
         # Create SQS client
+        
+        """
+            This method will Create SQS client
+
+            :param str queue_name: The Queue Name.
+            
+            :param dict pub_msg: The Public Message.
+
+            :returns: The response message.
+
+            :rtype: json
+        """
+        
         #session = boto3.Session()
         sqs = boto3.client('sqs')
         
@@ -32,6 +45,19 @@ class publish_sqs:
         return response
     
     def gen_msg(target: str, meta_dict: dict, msg_dict: dict, exceptionType: str, evtMsg: str):
+    
+        """
+            This method will Create SQS client
+
+            :param str queue_name: The Queue Name.
+            
+            :param dict pub_msg: The Public Message.
+
+            :returns: The response message.
+
+            :rtype: json
+        """
+    
         pub_dict = CONSTANTS.CONTROL_JSON_DICT
         if target == 'CTRL':
             print(target)
