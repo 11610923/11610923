@@ -12,14 +12,6 @@ acuity\_de\_batchingmonitor.commons.CONSTANTS module
    :undoc-members:
    :show-inheritance:
 
-acuity\_de\_batchingmonitor.commons.connect\_pg module
-------------------------------------------------------
-
-.. automodule:: acuity_de_batchingmonitor.commons.connect_pg
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 acuity\_de\_batchingmonitor.commons.gen\_sql module
 ---------------------------------------------------
 
