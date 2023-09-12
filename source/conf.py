@@ -56,22 +56,10 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store','commons.CONSTANTS.py']
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-# html_theme = 'sphinx_rtd_theme'
-html_theme = 'renku'
+html_theme = 'sphinx_rtd_theme'
+# html_theme = 'renku'
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
-
-def autodoc_skip_member(app, what, name, obj, skip, options):
-    # Ref: https://stackoverflow.com/a/21449475/
-    exclusions = ('__weakref__',  # special-members
-                  '__doc__', '__module__', '__dict__', 'CONSTANTS'  # undoc-members
-                  )
-    exclude = name in exclusions
-    # return True if (skip or exclude) else None  # Can interfere with subsequent skip functions.
-    return True if exclude else None
- 
-def setup(app):
-    app.connect('autodoc-skip-member', autodoc_skip_member)
