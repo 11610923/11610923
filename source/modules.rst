@@ -4,5 +4,4 @@ acuity_de_batchingmonitor
 .. toctree::
    :maxdepth: 4
 
-   commons
-   monitor
+   acuity_de_batchingmonitor
