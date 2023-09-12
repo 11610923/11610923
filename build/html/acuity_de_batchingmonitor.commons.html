@@ -46,7 +46,6 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="readme.html">Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="readme.html#batch-monitoring-flow">Batch Monitoring Flow:</a></li>
-<li class="toctree-l1"><a class="reference internal" href="readme.html#id1"></a></li>
 <li class="toctree-l1"><a class="reference internal" href="readme.html#installing-dependent-modules">Installing Dependent Modules</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">acuity_de_batchingmonitor</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="acuity_de_batchingmonitor.html">acuity_de_batchingmonitor package</a><ul class="current">
@@ -96,11 +95,80 @@
 <section id="module-acuity_de_batchingmonitor.commons.CONSTANTS">
 <span id="acuity-de-batchingmonitor-commons-constants-module"></span><h2>acuity_de_batchingmonitor.commons.CONSTANTS module<a class="headerlink" href="#module-acuity_de_batchingmonitor.commons.CONSTANTS" title="Permalink to this heading"></a></h2>
 </section>
+<section id="acuity-de-batchingmonitor-commons-connect-pg-module">
+<h2>acuity_de_batchingmonitor.commons.connect_pg module<a class="headerlink" href="#acuity-de-batchingmonitor-commons-connect-pg-module" title="Permalink to this heading"></a></h2>
+</section>
 <section id="module-acuity_de_batchingmonitor.commons.gen_sql">
 <span id="acuity-de-batchingmonitor-commons-gen-sql-module"></span><h2>acuity_de_batchingmonitor.commons.gen_sql module<a class="headerlink" href="#module-acuity_de_batchingmonitor.commons.gen_sql" title="Permalink to this heading"></a></h2>
 </section>
 <section id="acuity-de-batchingmonitor-commons-json-validator-module">
 <h2>acuity_de_batchingmonitor.commons.json_validator module<a class="headerlink" href="#acuity-de-batchingmonitor-commons-json-validator-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-acuity_de_batchingmonitor.commons.log4j_logger">
+<span id="acuity-de-batchingmonitor-commons-log4j-logger-module"></span><h2>acuity_de_batchingmonitor.commons.log4j_logger module<a class="headerlink" href="#module-acuity_de_batchingmonitor.commons.log4j_logger" title="Permalink to this heading"></a></h2>
+<p>This module contains a class that wraps the log4j object instantiated by the active SparkContext, enabling Log4j logging for PySpark using.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="acuity_de_batchingmonitor.commons.log4j_logger.Log4j">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">acuity_de_batchingmonitor.commons.log4j_logger.</span></span><span class="sig-name descname"><span class="pre">Log4j</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spark</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/acuity_de_batchingmonitor/commons/log4j_logger.html#Log4j"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#acuity_de_batchingmonitor.commons.log4j_logger.Log4j" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="acuity_de_batchingmonitor.commons.log4j_logger.Log4j.debug">
+<span class="sig-name descname"><span class="pre">debug</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/acuity_de_batchingmonitor/commons/log4j_logger.html#Log4j.debug"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#acuity_de_batchingmonitor.commons.log4j_logger.Log4j.debug" title="Permalink to this definition"></a></dt>
+<dd><p>It prints messages with the level (Level.DEBUG).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>message</strong> (<em>obj</em>) – The message object.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="acuity_de_batchingmonitor.commons.log4j_logger.Log4j.error">
+<span class="sig-name descname"><span class="pre">error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/acuity_de_batchingmonitor/commons/log4j_logger.html#Log4j.error"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#acuity_de_batchingmonitor.commons.log4j_logger.Log4j.error" title="Permalink to this definition"></a></dt>
+<dd><p>It prints messages with the level (Level.ERROR).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>message</strong> (<em>obj</em>) – The message object.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="acuity_de_batchingmonitor.commons.log4j_logger.Log4j.info">
+<span class="sig-name descname"><span class="pre">info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/acuity_de_batchingmonitor/commons/log4j_logger.html#Log4j.info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#acuity_de_batchingmonitor.commons.log4j_logger.Log4j.info" title="Permalink to this definition"></a></dt>
+<dd><p>It prints messages with the level (Level.INFO).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>message</strong> (<em>obj</em>) – The message object.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="acuity_de_batchingmonitor.commons.log4j_logger.Log4j.warn">
+<span class="sig-name descname"><span class="pre">warn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/acuity_de_batchingmonitor/commons/log4j_logger.html#Log4j.warn"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#acuity_de_batchingmonitor.commons.log4j_logger.Log4j.warn" title="Permalink to this definition"></a></dt>
+<dd><p>It prints messages with the level (Level.WARN).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>message</strong> (<em>obj</em>) – The message object.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 <section id="acuity-de-batchingmonitor-commons-publish-sqs-module">
 <h2>acuity_de_batchingmonitor.commons.publish_sqs module<a class="headerlink" href="#acuity-de-batchingmonitor-commons-publish-sqs-module" title="Permalink to this heading"></a></h2>
