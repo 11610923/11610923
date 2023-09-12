@@ -34,6 +34,11 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.viewcode',
     'sphinx.ext.napoleon',
+    'sphinx.ext.doctest',
+    'sphinx.ext.duration',
+    'sphinx.ext.autosummary',
+    'sphinx.ext.intersphinx',
+    'autoapi.extension',
     'myst_parser'
 ]
 
