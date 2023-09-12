@@ -36,9 +36,10 @@ jobs:
           #mkdir -p source
           # cp acuity_de_batchingmonitor/readme.md source/readme.md
           ls -lS 
+          make -C docs clean
           sphinx-apidoc --force -o source acuity_de_batchingmonitor
-          sphinx-build -b html source docs/
-          make html
+          #sphinx-build -b html source docs/
+          make -C docs html
           
       - name: Commit changes
         run: |
