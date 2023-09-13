@@ -15,6 +15,8 @@ Batch Monitoring Flow
 6. Publish it to the Control service queue.
 7. Ends the process.
 
+# ![Batching_Monitor_flow](Batching_Monitor_flow.jpg)
+
 Installing Dependent Modules
 ============================
 
