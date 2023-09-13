@@ -38,12 +38,14 @@ extensions = [
     'sphinx.ext.duration',
     'sphinx.ext.autosummary',
     'sphinx.ext.intersphinx',
+    'rst2pdf.pdfbuilder',
     # 'autoapi.extension',
     'myst_parser'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
+pdf_documents = [('index', u'rst2pdf', u'Batch Monitoring Services', u'Vigenesh Raj'),]
 
 source_suffix = {
     '.rst': 'restructuredtext',

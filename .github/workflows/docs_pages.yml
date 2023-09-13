@@ -33,15 +33,17 @@ jobs:
           python -m pip install psycopg2
           python -m pip install jsonschema
           python -m pip install boto3
+          python -m pip install rst2pdf
 
       - name: make the sphinx docs
         run: |
-          #mkdir -p docs
+          #mkdir -p docs/html
           #mkdir -p source
           cp acuity_de_batchingmonitor/readme.md source/readme.md
-          cp acuity_de_batchingmonitor/Batching_Monitor_flow.jpg source/Batching_Monitor_flow.jpg
+          cp acuity_de_batchingmonitor/Batc hing_Monitor_flow.jpg source/Batching_Monitor_flow.jpg
           sphinx-apidoc --force -o source acuity_de_batchingmonitor
-          sphinx-build -b html source docs/
+          sphinx-build -b html source docs/html
+          sphinx-build -b pdf source docs/pdf
           
       - name: Commit changes
         run: |
