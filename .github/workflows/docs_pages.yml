@@ -40,7 +40,7 @@ jobs:
           #mkdir -p docs/html
           #mkdir -p source
           cp acuity_de_batchingmonitor/readme.md source/readme.md
-          cp acuity_de_batchingmonitor/Batc hing_Monitor_flow.jpg source/Batching_Monitor_flow.jpg
+          cp acuity_de_batchingmonitor/Batching_Monitor_flow.jpg source/Batching_Monitor_flow.jpg
           sphinx-apidoc --force -o source acuity_de_batchingmonitor
           sphinx-build -b html source docs/html
           sphinx-build -b pdf source docs/pdf
