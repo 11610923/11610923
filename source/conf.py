@@ -45,7 +45,7 @@ extensions = [
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
-pdf_documents = [('index', u'rst2pdf', u'Batch Monitoring Services', u'Vigenesh Raj'),]
+pdf_documents = [('index', u'Batch_Monitoring_Services', u'Batch Monitoring Services', u'Vigenesh Raj'),]
 
 source_suffix = {
     '.rst': 'restructuredtext',
