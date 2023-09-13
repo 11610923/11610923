@@ -22,3 +22,4 @@ def validate_json(schema, json_dict):
         print(err)
         return False
     return True
+ 
