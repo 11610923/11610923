@@ -34,6 +34,7 @@ jobs:
           python -m pip install jsonschema
           python -m pip install boto3
           python -m pip install rst2pdf
+          python -m pip install sphinxtogithub
 
       - name: make the sphinx docs
         run: |
