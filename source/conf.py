@@ -39,6 +39,7 @@ extensions = [
     'sphinx.ext.autosummary',
     'sphinx.ext.intersphinx',
     'rst2pdf.pdfbuilder',
+    'sphinx.ext.githubpages',
     # 'autoapi.extension',
     'myst_parser'
 ]
